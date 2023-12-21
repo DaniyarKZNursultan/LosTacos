@@ -1,0 +1,40 @@
+{% extends 'lostacos/layout.html' %}
+
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <div class="profile-card">
+        <div class="profile-info">
+            <div class="profile-contact-info">
+                <h1>{{ user }}</h1>
+                <div class="email-info">
+                    <span class="label">Эл. почта:</span>
+                    <span class="value">{{ user.email }}</span>
+                </div>
+                <a href="{% url 'password_change' %}">Сброс пароля</a>
+            </div>
+        </div>
+    </div>
+    <div class="cart">
+        <div class="cart-content">
+            <ul>
+                {% for cart_item in cart_items %}
+                    <li>
+                        <div class="cart-item">
+                            <div class="cart-item-image">
+                                <img src="{{ cart_item.dish.photo.url }}" alt="{{ cart_item.dish.name }}">
+                            </div>
+                            <div class="cart-item-details">
+                                <p>{{ cart_item.quantity }} x {{ cart_item.dish.name }} - {{ cart_item.subtotal }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Общая стоимость: {{ total_price }}</p>
+            <button onclick="clearCart()">Очистить корзину</button>
+        </div>
+    </div>
+{% endblock %}

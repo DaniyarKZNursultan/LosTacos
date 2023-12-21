@@ -1,0 +1,25 @@
+{% extends 'lostacos/layout.html' %}
+
+{% load static %}
+
+{% block title %}Логин{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h1>Войти</h1>
+        <form method="post" class="login-form" action="{% url 'login' %}">
+            <label for="username">Username:</label>
+            <input type="text" id="userName" name="username" required>
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            {% csrf_token %}
+            {% if form.errors %}
+                <p>{{ form.errors.error }}</p>
+            {% endif %}
+            <button type="submit">Войти</button>
+            <a href="{% url 'password_reset' %}">Забыл пароль</a>
+            <a href="{% url 'register' %}">Регистрация</a>
+        </form>
+    </div>
+{% endblock %}
